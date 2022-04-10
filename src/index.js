@@ -33,8 +33,8 @@ User.hasMany(Payment);
 Payment.belongsTo(User);
 
 // Associations related to Product 
-Category.hasMany(Product);
-Product.belongsTo(Category);
+Category.hasMany(Product, { onDelete: 'cascade' });
+Product.belongsTo(Category, { onDelete: 'cascade' });
 
 const app = express();
 app.use(bodyParser.json());
@@ -49,7 +49,7 @@ app.use("/api/categories", categoryRouter);
 app.get("/", (req, res) => res.json({ message: "Hello World" }));
 
 const startServer = () => {
-  sequelize.sync({force: true});
+  sequelize.sync({ });
   sequelize
     .authenticate()
     .then(() => {
